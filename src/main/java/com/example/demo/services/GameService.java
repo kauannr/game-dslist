@@ -19,6 +19,34 @@ public class GameService {
     @Autowired
     private GameRepository gameRepository;
 
+    @Transactional
+    public GameMinDTO save(Game game) {
+
+        game = gameRepository.save(game);
+        GameMinDTO gameMinDTO = new GameMinDTO(game);
+
+        return gameMinDTO;
+    }
+
+    @Transactional
+    public GameMinDTO update(long idOldGame, Game game) {
+        Game oldGame = gameRepository.findById(idOldGame)
+                .orElseThrow(() -> new EntityNotFoundException("Game não encontrado"));
+
+        oldGame.setGenre(game.getGenre());
+        oldGame.setImgUrl(game.getImgUrl());
+        oldGame.setLongDescription(game.getLongDescription());
+        oldGame.setPlatforms(game.getPlatforms());
+        oldGame.setScore(game.getScore());
+        oldGame.setShortDescription(game.getShortDescription());
+        oldGame.setTitle(game.getTitle());
+        oldGame.setYearGame(game.getYearGame());
+
+        gameRepository.save(oldGame);
+
+        return new GameMinDTO(oldGame);
+    }
+
     @Transactional(readOnly = true)
     public List<GameMinDTO> findAll() {
 

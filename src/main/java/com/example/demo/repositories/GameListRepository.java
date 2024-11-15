@@ -9,6 +9,7 @@ import com.example.demo.model.GameList;
 
 @Repository
 public interface GameListRepository extends JpaRepository<GameList, Long> {
+
     @Modifying
     @Query(nativeQuery = true, value = "UPDATE belonging SET position = :newPosition WHERE game_list_id = :listId AND game_id = :gameId")
     void updateBelongingPosition(Long listId, Long gameId, Integer newPosition);

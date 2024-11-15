@@ -23,6 +23,28 @@ public class GameListService {
     @Autowired
     GameRepository gameRepository;
 
+    @Transactional
+    public GameListDTO save(GameList gameList) {
+        gameListRepository.save(gameList);
+        GameListDTO gameListDTO = new GameListDTO(gameList);
+
+        return gameListDTO;
+    }
+
+    @Transactional
+    public GameListDTO update(long idOldList, GameList newGameList) {
+
+        GameList oldGameList = gameListRepository.findById(idOldList)
+                .orElseThrow(() -> new EntityNotFoundException("Lista não encontrada"));
+
+        oldGameList.setName(newGameList.getName());
+
+        gameListRepository.save(oldGameList);
+
+        return new GameListDTO(oldGameList);
+
+    }
+
     @Transactional(readOnly = true)
     public List<GameListDTO> findAll() {
 

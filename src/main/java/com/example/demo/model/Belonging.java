@@ -11,6 +11,7 @@ public class Belonging {
     @EmbeddedId
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private BelongingPK belongingPK = new BelongingPK();
+    
     private Integer position;
 
     public Belonging(Game game, GameList gameList, Integer position) {

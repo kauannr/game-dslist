@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dtos.BelongingDTO;
 import com.example.demo.dtos.GameListDTO;
 import com.example.demo.dtos.GameMinDTO;
 import com.example.demo.dtos.ReplacementDTO;
+import com.example.demo.services.BelongingService;
 import com.example.demo.services.GameListService;
 import com.example.demo.services.GameService;
 
@@ -26,6 +28,9 @@ public class GameListController {
 
     @Autowired
     private GameService gameService;
+
+    @Autowired
+    private BelongingService belongingService;
 
     @GetMapping()
     public ResponseEntity<List<GameListDTO>> findAllList() {
@@ -42,7 +47,7 @@ public class GameListController {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<GameListDTO> getMethodName(@PathVariable("id") long id) {
+    public ResponseEntity<GameListDTO> movePosition(@PathVariable("id") long id) {
 
         GameListDTO gameListDTO = gameListService.findById(id);
 
@@ -56,6 +61,15 @@ public class GameListController {
         gameListService.move(idList, replacementDTO.getSourceIndex(), replacementDTO.getTargetIndex());
 
         return ResponseEntity.ok().body(null);
+    }
+
+    @PostMapping("/{idList}/game/{idGame}")
+    public ResponseEntity<?> addToTableBelonging(@PathVariable("idList") long idList, @PathVariable("idGame") long idGame) {
+
+        BelongingDTO BelongingDTO = belongingService.addToTable(idList, idGame);
+
+        return ResponseEntity.ok().body(
+                "Jogo " + idGame + " adicionado na lista " + idList + " na posicao " + BelongingDTO.getPosition());
     }
 
 }
