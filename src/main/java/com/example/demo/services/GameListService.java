@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.demo.dtos.GameListDTO;
 import com.example.demo.model.GameList;
 import com.example.demo.repositories.GameListRepository;
+import com.example.demo.repositories.GameMinProjection;
+import com.example.demo.repositories.GameRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -17,6 +19,9 @@ public class GameListService {
 
     @Autowired
     GameListRepository gameListRepository;
+
+    @Autowired
+    GameRepository gameRepository;
 
     @Transactional(readOnly = true)
     public List<GameListDTO> findAll() {
@@ -38,6 +43,23 @@ public class GameListService {
                 .orElseThrow(() -> new EntityNotFoundException("Lista não encontrada"));
 
         return new GameListDTO(gameList);
+    }
+
+    @Transactional
+    public void move(long idlist, int sourceIndex, int targetIndex) {
+
+        List<GameMinProjection> gamesFromList = gameRepository.searchByList(idlist);
+
+        GameMinProjection game = gamesFromList.remove(sourceIndex);
+        gamesFromList.add(targetIndex, game);
+
+        int positionMin = sourceIndex < targetIndex ? sourceIndex : targetIndex;
+        int positionMax = sourceIndex > targetIndex ? sourceIndex : targetIndex;
+
+        for (int i = positionMin; i <= positionMax; i++) {
+            gameListRepository.updateBelongingPosition(idlist, gamesFromList.get(i).getId(), i);
+        }
+
     }
 
 }

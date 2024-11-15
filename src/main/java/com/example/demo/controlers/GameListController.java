@@ -6,15 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dtos.GameListDTO;
 import com.example.demo.dtos.GameMinDTO;
+import com.example.demo.dtos.ReplacementDTO;
 import com.example.demo.services.GameListService;
 import com.example.demo.services.GameService;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 @RestController
 @RequestMapping(value = "/lists")
@@ -47,6 +48,14 @@ public class GameListController {
 
         return ResponseEntity.ok().body(gameListDTO);
     }
-    
-    
+
+    @PostMapping(value = "{idList}/replacement")
+    public ResponseEntity<?> replacementPosition(@PathVariable("idList") long idList,
+            @RequestBody ReplacementDTO replacementDTO) {
+
+        gameListService.move(idList, replacementDTO.getSourceIndex(), replacementDTO.getTargetIndex());
+
+        return ResponseEntity.ok().body(null);
+    }
+
 }
