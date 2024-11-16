@@ -9,7 +9,7 @@ Abaixo mostro uma demonstração de como seria a aplicação após o frontend fe
 # Demonstração:
  ![Jogo na list](https://github.com/kauannr/game-dslist/raw/30d71851e67b6696890af356965c4ce7ae5fde88/src/assets/Anima%C3%A7%C3%A3o.gif)
  
- ![Movimentação dos jogos](https://github.com/kauannr/game-dslist/tree/main/src/assets/Animação2.gif)
+ ![Movimentação dos jogos](https://github.com/kauannr/game-dslist/blob/110b8ee19df959af4aba83a884629ba03e0deacb/src/assets/Anima%C3%A7%C3%A3o2.gif)
 
 # Modelo do domínio:
  ![image](https://github.com/user-attachments/assets/032348d1-f341-4105-9384-849fea70aa4d)
