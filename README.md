@@ -7,7 +7,7 @@ Este projeto é o backend de uma DSList de games, nele iremos encontrar lista de
 Abaixo mostro uma demonstração de como seria a aplicação após o frontend feito.
 
 # Demonstração:
- ![Jogo na list](https://github.com/kauannr/game-dslist/tree/main/src/assets/Animação.gif)
+ ![Jogo na list](https://github.com/kauannr/game-dslist/raw/30d71851e67b6696890af356965c4ce7ae5fde88/src/assets/Anima%C3%A7%C3%A3o.gif)
  
  ![Movimentação dos jogos](https://github.com/kauannr/game-dslist/tree/main/src/assets/Animação2.gif)
 
